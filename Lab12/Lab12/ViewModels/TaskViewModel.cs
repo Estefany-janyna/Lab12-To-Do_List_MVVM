@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -11,8 +10,8 @@ namespace Lab12.ViewModels
 {
     public class TaskViewModel : ViewModelBase
     {
-        int title;
-        public int Title
+        string title;
+        public string Title
         {
             get { return title; }
             set
@@ -24,8 +23,9 @@ namespace Lab12.ViewModels
                 }
             }
         }
-        int description;
-        public int Description
+
+        string description;
+        public string Description
         {
             get { return description; }
             set
@@ -38,15 +38,25 @@ namespace Lab12.ViewModels
             }
         }
 
+        string selectedStatus;
+        public string SelectedStatus
+        {
+            get { return selectedStatus; }
+            set
+            {
+                if (selectedStatus != value)
+                {
+                    selectedStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         ObservableCollection<TaskModel> tasks;
-
-        internal List<TaskModel> TaskModels { get; }
-
         public ObservableCollection<TaskModel> Tasks
         {
-            get { return tasks; } 
-            set 
+            get { return tasks; }
+            set
             {
                 if (tasks != value)
                 {
@@ -59,23 +69,26 @@ namespace Lab12.ViewModels
         public ICommand Save { protected set; get; }
         public ICommand Get { protected set; get; }
 
-        private List<TaskModel> TaskModel;
+        private List<TaskModel> TaskModels;
         public TaskViewModel()
         {
-            tasks = new ObservableCollection<TaskModel>();
+            Tasks = new ObservableCollection<TaskModel>();
             TaskModels = new List<TaskModel>();
 
             Save = new Command(() =>
             {
                 TaskModel task = new TaskModel();
                 task.Title = this.Title;
-                TaskModel.Add(task);
+                task.Description = this.Description;
+                task.Status = this.SelectedStatus;
+                TaskModels.Add(task);
+
             });
             Get = new Command(() =>
             {
-                Tasks = new ObservableCollection<TaskModels>;
+                Tasks = new ObservableCollection<TaskModel>(TaskModels);
             });
-
         }
+
     }
 }
