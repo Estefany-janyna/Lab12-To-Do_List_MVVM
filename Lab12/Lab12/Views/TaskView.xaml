@@ -4,36 +4,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lab12.Views.TaskView">
     <ContentPage.Content>
-        <StackLayout Padding="50">
-            <Label Text="Title" FontSize="Title"/>
-            <Entry Placeholder="text" Text="{Binding Title}"></Entry>
-            <Label Text="Description" FontSize="Title"/>
-            <Entry Placeholder="description" Text="{Binding Description}"></Entry>
-            <Label Text="Status" FontSize="Title"/>
-            <Picker Title="Select Status" SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
-                <Picker.Items>
-                    <x:String>Activo</x:String>
-                    <x:String>Desactivado</x:String>
-                </Picker.Items>
-            </Picker>
-
-            <Button Text="Save" TextColor="Black" BackgroundColor="Aquamarine" Command="{Binding Save}"></Button>
-            <Button Text="Get" TextColor="Black"  BackgroundColor="Aquamarine" Command="{Binding Get}"></Button>
-
-            <ListView ItemsSource="{Binding Tasks}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Title}" />
-                                <Label Text="{Binding Description}" />
-                                <Label Text="{Binding Status}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
+        <StackLayout>
+            <!-- El Frame fuera del StackLayout y abarca toda la pantalla -->
+            <Frame BackgroundColor="#2196F3" Padding="30" CornerRadius="0">
+                <Label Text="Laboratorio12: To-Do List Taipe Estefany" HorizontalTextAlignment="Center" TextColor="White" FontSize="30"/>
+            </Frame>
+            <!-- Segundo StackLayout con padding -->
+            <StackLayout Padding="50">
+                <!-- título, descripción y estado -->
+                <Label Text="Title" FontSize="Title"/>
+                <Entry Placeholder="text" Text="{Binding Title}"></Entry>
+                <Label Text="Description" FontSize="Title"/>
+                <Entry Placeholder="description" Text="{Binding Description}"></Entry>
+                <Label Text="Status" FontSize="Title"/>
+                <!-- para seleccionar de estado (Picker) con opciones Activo y Desactivado -->
+                <Picker Title="Select Status" SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Activo</x:String>
+                        <x:String>Desactivado</x:String>
+                    </Picker.Items>
+                </Picker>
+                <!-- Botones Save y Get -->
+                <Button Text="Save" TextColor="Black" BackgroundColor="Aquamarine" Command="{Binding Save}"></Button>
+                <Button Text="Get" TextColor="Black" BackgroundColor="Aquamarine" Command="{Binding Get}"></Button>
+                <!-- Lista (ListView) para mostrar las tareas -->
+                <ListView ItemsSource="{Binding Tasks}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <!-- Diseño de cada elemento en la lista, disposición horizontal y margin -->
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Title}" Margin="3"/>
+                                    <Label Text="{Binding Description}"  Margin="3"/>
+                                    <Label Text="{Binding Status}"  Margin="3"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
